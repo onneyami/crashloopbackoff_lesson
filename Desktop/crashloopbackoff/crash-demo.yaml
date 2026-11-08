@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: crash-demo
+  labels:
+    app: crash-demo
+spec:
+  containers:
+    - name: app
+      image: busybox:1.36
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          if [ -z "$APP_MODE" ]; then
+            echo "ERROR: APP_MODE is not set"
+            exit 1
+          fi
+
+          echo "Application started in $APP_MODE mode"
+
+          while true; do
+            sleep 30
+          done
